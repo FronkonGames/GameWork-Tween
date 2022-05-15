@@ -1,0 +1,16 @@
+﻿{
+  "name": "FronkonGames.GameWork.Modules.TweenModule.Editor",
+  "references":
+  [
+    "FronkonGames.GameWork.Foundation.Editor",
+    "FronkonGames.GameWork.Modules.TweenModule"
+  ],
+  "optionalUnityReferences": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": []
+}
