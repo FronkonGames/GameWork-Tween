@@ -14,71 +14,21 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using UnityEngine;
-using UnityEngine.Pool;
-using FronkonGames.GameWork.Core;
 
 namespace FronkonGames.GameWork.Modules.TweenModule
 {
   /// <summary>
-  /// .
+  /// Execution modes of a Tween operation.
   /// </summary>
-  public sealed class TweenModule : IInitializable,
-                                    IUpdatable
+  public enum TweenExecution
   {
-    /// <summary>
-    /// Is it initialized?
-    /// </summary>
-    /// <value>Value</value>
-    public bool Initialized { get; set; }
+    /// <summary>Just once.</summary>
+    Once,
 
-    /// <summary>
-    /// Should be updated?
-    /// </summary>
-    /// <value>True/false.</value>
-    public bool ShouldUpdate { get; } = true;
+    /// <summary>Start over from the beginning.</summary>
+    Loop,
 
-    /// <summary>
-    /// When initialize.
-    /// </summary>
-    public void OnInitialize()
-    {
-    }
-
-    /// <summary>
-    /// At the end of initialization.
-    /// Called in the first Update frame.
-    /// </summary>
-    public void OnInitialized()
-    {
-    }
-
-    /// <summary>
-    /// When deinitialize.
-    /// </summary>
-    public void OnDeinitialize()
-    {
-    }
-
-    /// <summary>
-    /// Update event.
-    /// </summary>
-    public void OnUpdate()
-    {
-    }
-
-    /// <summary>
-    /// FixedUpdate event.
-    /// </summary>
-    public void OnFixedUpdate()
-    {
-    }
-
-    /// <summary>
-    /// LateUpdate event.
-    /// </summary>
-    public void OnLateUpdate()
-    {
-    }
+    /// <summary>Back and forth loop.</summary>
+    PingPong,
   }
 }
