@@ -14,8 +14,10 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using UnityEngine;
-using UnityEngine.Pool;
+using System;
+// using UnityEngine;
+// using UnityEngine.Pool; TODO
+using FronkonGames.GameWork.Foundation;
 using FronkonGames.GameWork.Core;
 
 namespace FronkonGames.GameWork.Modules.TweenModule
@@ -38,6 +40,58 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// <value>True/false.</value>
     public bool ShouldUpdate { get; } = true;
 
+    private readonly FastList<ITween> tweens = new FastList<ITween>();
+
+    /// <summary>
+    /// Creates a Tween Float.
+    /// </summary>
+    /// <param name="start">Initial value.</param>
+    /// <param name="end">Final value.</param>
+    /// <param name="duration">Duration in seconds of the operation.</param>
+    /// <param name="easing">Easing type.</param>
+    /// <param name="progressCallback">Progress callback. Necessary to update the value.</param>
+    /// <param name="execution">Execution mode: Once, Loop, Yoyo.</param>
+    /// <param name="endCallback">End callback.</param>
+    /// <param name="conditionFunc">Condition function. If the condition is not true, the tween ends.</param>
+    public TweenFloat Create(float start,
+                             float end,
+                             float duration,
+                             Easing easing,
+                             Action<ITween<float>> progressCallback,
+                             TweenExecution execution = TweenExecution.Once,
+                             Action<ITween<float>> endCallback = null,
+                             Func<ITween<float>, bool> conditionFunc = null)
+    {
+      TweenFloat tween = new TweenFloat();
+      tween.Start(start, end, duration, easing, progressCallback, execution, endCallback, conditionFunc);
+
+      Add(tween);
+
+      return tween;
+    }
+
+    /// <summary>
+    /// Add an existing tween.
+    /// </summary>
+    public void Add(ITween tween)
+    {
+      Check.IsNotNull(tween);
+
+      tweens.Add(tween);
+    }
+
+    /// <summary>
+    /// Remove a tween.
+    /// </summary>
+    public bool Remove(ITween tween, bool moveToEnd = false)
+    {
+      Check.IsNotNull(tween);
+
+      tween.Stop(moveToEnd);
+
+      return tweens.Remove(tween);
+    }
+
     /// <summary>
     /// When initialize.
     /// </summary>
@@ -58,6 +112,7 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// </summary>
     public void OnDeinitialize()
     {
+      tweens.Clear();
     }
 
     /// <summary>
@@ -65,6 +120,12 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// </summary>
     public void OnUpdate()
     {
+      for (int i = tweens.Count - 1; i >= 0; --i)
+      {
+        ITween tween = tweens[i];
+        if (tween.Update() == true && i < tweens.Count)
+          tweens.RemoveAt(i);
+      }
     }
 
     /// <summary>
