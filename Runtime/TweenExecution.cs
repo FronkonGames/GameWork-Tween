@@ -29,6 +29,6 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     Loop,
 
     /// <summary>Back and forth loop.</summary>
-    PingPong,
+    YoYo,
   }
 }

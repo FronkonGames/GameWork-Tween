@@ -38,61 +38,61 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// <param name="ease"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static float Evaluate(EaseType ease, float value)
+    public static float Evaluate(Easing ease, float value)
     {
       switch (ease)
       {
-        case EaseType.Linear:       return value;
+        case Easing.Linear:       return value;
 
-        case EaseType.SineIn:       return 1.0f - Mathf.Cos((value * MathConstants.Pi) * 0.5f);
-        case EaseType.SineOut:      return Mathf.Sin((value * MathConstants.Pi) * 0.5f);
-        case EaseType.SineInOut:    return -(Mathf.Cos(MathConstants.Pi * value) - 1.0f) * 0.5f;
+        case Easing.SineIn:       return 1.0f - Mathf.Cos((value * MathConstants.Pi) * 0.5f);
+        case Easing.SineOut:      return Mathf.Sin((value * MathConstants.Pi) * 0.5f);
+        case Easing.SineInOut:    return -(Mathf.Cos(MathConstants.Pi * value) - 1.0f) * 0.5f;
 
-        case EaseType.QuadIn:       return value * value;
-        case EaseType.QuadOut:      return 1.0f - (1.0f - value) * (1.0f - value);
-        case EaseType.QuadInOut:    return value < 0.5f ? 2.0f * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 2) * 0.5f;
+        case Easing.QuadIn:       return value * value;
+        case Easing.QuadOut:      return 1.0f - (1.0f - value) * (1.0f - value);
+        case Easing.QuadInOut:    return value < 0.5f ? 2.0f * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 2) * 0.5f;
 
-        case EaseType.CubicIn:      return value * value * value;
-        case EaseType.CubicOut:     return 1.0f - Mathf.Pow(1.0f - value, 3);
-        case EaseType.CubicInOut:   return value < 0.5f ? 4.0f * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 3) * 0.5f;
+        case Easing.CubicIn:      return value * value * value;
+        case Easing.CubicOut:     return 1.0f - Mathf.Pow(1.0f - value, 3);
+        case Easing.CubicInOut:   return value < 0.5f ? 4.0f * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 3) * 0.5f;
 
-        case EaseType.QuartIn:      return value * value * value * value;
-        case EaseType.QuartOut:     return 1.0f - Mathf.Pow(1.0f - value, 4);
-        case EaseType.QuartInOut:   return value < 0.5 ? 8.0f * value * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 4) * 0.5f;
+        case Easing.QuartIn:      return value * value * value * value;
+        case Easing.QuartOut:     return 1.0f - Mathf.Pow(1.0f - value, 4);
+        case Easing.QuartInOut:   return value < 0.5 ? 8.0f * value * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 4) * 0.5f;
 
-        case EaseType.QuintIn:      return value * value * value * value * value;
-        case EaseType.QuintOut:     return 1.0f - Mathf.Pow(1.0f - value, 5);
-        case EaseType.QuintInOut:   return value < 0.5f ? 16.0f * value * value * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 5) * 0.5f;
+        case Easing.QuintIn:      return value * value * value * value * value;
+        case Easing.QuintOut:     return 1.0f - Mathf.Pow(1.0f - value, 5);
+        case Easing.QuintInOut:   return value < 0.5f ? 16.0f * value * value * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 5) * 0.5f;
 
-        case EaseType.ExpoIn:       return value.NearlyEquals(0.0f) ? 0.0f : Mathf.Pow(2.0f, 10 * value - 10);
-        case EaseType.ExpoOut:      return value.NearlyEquals(1.0f) ? 1.0f : 1.0f - Mathf.Pow(2.0f, -10 * value);
-        case EaseType.ExpoInOut:    return value.NearlyEquals(0.0f) ? 0.0f :
+        case Easing.ExpoIn:       return value.NearlyEquals(0.0f) ? 0.0f : Mathf.Pow(2.0f, 10 * value - 10);
+        case Easing.ExpoOut:      return value.NearlyEquals(1.0f) ? 1.0f : 1.0f - Mathf.Pow(2.0f, -10 * value);
+        case Easing.ExpoInOut:    return value.NearlyEquals(0.0f) ? 0.0f :
                                             value.NearlyEquals(1.0f) ? 1.0f :
                                               value < 0.5 ? Mathf.Pow(2.0f, 20 * value - 10) * 0.5f :
                                                 (2.0f - Mathf.Pow(2.0f, -20 * value + 10)) * 0.5f;
 
-        case EaseType.CircIn:       return 1.0f - Mathf.Sqrt(1.0f - Mathf.Pow(value, 2));
-        case EaseType.CircOut:      return Mathf.Sqrt(1.0f - Mathf.Pow(value - 1.0f, 2));
-        case EaseType.CircInOut:    return value < 0.5f ? (1.0f - Mathf.Sqrt(1.0f - Mathf.Pow(2.0f * value, 2))) * 0.5f :
+        case Easing.CircIn:       return 1.0f - Mathf.Sqrt(1.0f - Mathf.Pow(value, 2));
+        case Easing.CircOut:      return Mathf.Sqrt(1.0f - Mathf.Pow(value - 1.0f, 2));
+        case Easing.CircInOut:    return value < 0.5f ? (1.0f - Mathf.Sqrt(1.0f - Mathf.Pow(2.0f * value, 2))) * 0.5f :
                                             (Mathf.Sqrt(1.0f - Mathf.Pow(-2.0f * value + 2.0f, 2)) + 1.0f) * 0.5f;
 
-        case EaseType.BackIn:       return ConstantC * value * value * value - ConstantA * value * value;
-        case EaseType.BackOut:      return 1.0f + ConstantC * Mathf.Pow(value - 1.0f, 3) + ConstantA * Mathf.Pow(value - 1.0f, 2);
-        case EaseType.BackInOut:    return value < 0.5f ? 16.0f * value * value * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 5) * 0.5f;
+        case Easing.BackIn:       return ConstantC * value * value * value - ConstantA * value * value;
+        case Easing.BackOut:      return 1.0f + ConstantC * Mathf.Pow(value - 1.0f, 3) + ConstantA * Mathf.Pow(value - 1.0f, 2);
+        case Easing.BackInOut:    return value < 0.5f ? 16.0f * value * value * value * value * value : 1.0f - Mathf.Pow(-2.0f * value + 2.0f, 5) * 0.5f;
 
-        case EaseType.ElasticIn:    return value.NearlyEquals(0.0f) ? 0.0f :
+        case Easing.ElasticIn:    return value.NearlyEquals(0.0f) ? 0.0f :
                                             value.NearlyEquals(1.0f) ? 1.0f :
                                               -Mathf.Pow(2.0f, 10 * value - 10) * Mathf.Sin((value * 10.0f - 10.75f) * ConstantD);
-        case EaseType.ElasticOut:   return value.NearlyEquals(0.0f) ? 0.0f :
+        case Easing.ElasticOut:   return value.NearlyEquals(0.0f) ? 0.0f :
                                             value.NearlyEquals(1.0f) ? 1.0f :
                                               Mathf.Pow(2.0f, -10 * value) * Mathf.Sin((value * 10.0f - 0.75f) * ConstantD) + 1.0f;
-        case EaseType.ElasticInOut: return value.NearlyEquals(0.0f) ? 0.0f :
+        case Easing.ElasticInOut: return value.NearlyEquals(0.0f) ? 0.0f :
                                             value.NearlyEquals(1.0f) ? 1.0f :
                                               value < 0.5f ? -(Mathf.Pow(2.0f, 20 * value - 10) * Mathf.Sin((20.0f * value - 11.125f) * ConstantE)) * 0.5f :
                                                 (Mathf.Pow(2.0f, -20 * value + 10) * Mathf.Sin((20.0f * value - 11.125f) * ConstantE)) * 0.5f + 1.0f;
 
-        case EaseType.BounceIn:     return 1.0f - EaseFunctions.Evaluate(EaseType.BounceOut, 1.0f - value);
-        case EaseType.BounceOut:
+        case Easing.BounceIn:     return 1.0f - EaseFunctions.Evaluate(Easing.BounceOut, 1.0f - value);
+        case Easing.BounceOut:
         {
           if (value < 1.0f / ConstantG)
             return ConstantF * value * value;
@@ -103,8 +103,8 @@ namespace FronkonGames.GameWork.Modules.TweenModule
 
           return ConstantF * (value -= 2.625f / ConstantG) * value + 0.984375f;
         }
-        case EaseType.BounceInOut:  return value < 0.5f ? (1.0f - EaseFunctions.Evaluate(EaseType.BounceOut, 1.0f - 2.0f * value)) * 0.5f :
-                                            (1.0f + EaseFunctions.Evaluate(EaseType.BounceOut, 2.0f * value - 1.0f)) * 0.5f;
+        case Easing.BounceInOut:  return value < 0.5f ? (1.0f - EaseFunctions.Evaluate(Easing.BounceOut, 1.0f - 2.0f * value)) * 0.5f :
+                                            (1.0f + EaseFunctions.Evaluate(Easing.BounceOut, 2.0f * value - 1.0f)) * 0.5f;
 
         default: return 0.0f;
       }

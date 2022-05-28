@@ -15,6 +15,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
+using FronkonGames.GameWork.Foundation;
 
 namespace FronkonGames.GameWork.Modules.TweenModule
 {
@@ -29,9 +30,27 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     public TweenState State { get; private set; } = TweenState.Finished;
 
     /// <summary>
+    /// Easing function.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public Easing Easing { get; set; } = Easing.Linear;
+
+    /// <summary>
     /// Current value.
     /// </summary>
     public T Value { get; private set; }
+
+    /// <summary>
+    /// Initial value.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public T ValueStart { get; set; }
+
+    /// <summary>
+    /// Final value.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public T ValueEnd { get; set; }
 
     /// <summary>
     /// Tween operation progress (0, 1).
@@ -44,36 +63,115 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     public int ExecutionCount { get; private set; }
 
     /// <summary>
+    /// Execution mode.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public TweenExecution Execution { get; set; } = TweenExecution.Once;
+
+    /// <summary>
+    /// Time that the operation takes.
+    /// </summary>
+    public float Time { get; private set; }
+
+    /// <summary>
+    /// Time to execute the operation.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public float Duration { get; set; }
+
+    /// <summary>
+    /// Progress callback.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public Action<ITween<T>> ProgressCallback { get; set; }
+
+    /// <summary>
+    /// End callback.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public Action<ITween<T>> EndCallback { get; set; }
+
+    /// <summary>
+    /// Condition of progress, stops if the operation is not true.
+    /// Use only when the operation is over (State == TweenState.Finished).
+    /// </summary>
+    public Func<ITween<T>, bool> ConditionFunction { get; set; }
+
+    private float currentTime;
+
+    private int residueCount = -1;
+
+    // Tween, start, end, progress.
+    private readonly Func<ITween<T>, T, T, float, T> lerpFunction;
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="lerpFunc">T linear interpolation function.</param>
+    public Tween(Func<ITween<T>, T, T, float, T> lerpFunction)
+    {
+      Check.IsNotNull(lerpFunction);
+
+      this.lerpFunction = lerpFunction;
+    }
+
+    /// <summary>
+    /// Execute a tween operation.
+    /// </summary>
+    public void Start() => Start(ValueStart, ValueEnd, Duration, Easing);
+
+    /// <summary>
+    /// Comienza una operacion de tween.
+    /// </summary>
+    /// <param name="start">Valor inicial.</param>
+    /// <param name="end">Valor final.</param>
+    /// <param name="duration">Duracion en segundos de la operacion.</param>
+    /// <param name="easing">Easing function.</param>
+    public void Start(T start, T end, float duration, Easing easing) => Start(start, end, duration, easing, ProgressCallback, Execution, EndCallback, ConditionFunction);
+
+    /// <summary>
     /// Execute a tween operation.
     /// </summary>
     /// <param name="start">Initial value.</param>
     /// <param name="end">Final value.</param>
     /// <param name="duration">Duration in seconds of the operation.</param>
-    /// <param name="tweenFunc">Function that modifies progress. It must return values between 0 and 1.</param>
+    /// <param name="easing">Easing function.</param>
     /// <param name="progressCallback">Progress callback. Necessary to update the value.</param>
     /// <param name="execution">Behavior when reaching the final value: once, loop, yoyo.</param>
     /// <param name="endCallback">End callback.</param>
     /// <param name="conditionFunc">Condition callback. If the condition is not fulfilled, the tween ends.</param>
-    public void Start(T start, T end, float duration, Func<float, float> tweenFunc, Action<ITween<T>> progressCallback,
+    public void Start(T start,
+                      T end,
+                      float duration,
+                      Easing easing,
+                      Action<ITween<T>> progressCallback,
                       TweenExecution execution = TweenExecution.Once,
                       Action<ITween<T>> endCallback = null,
                       Func<ITween<T>, bool> conditionFunc = null)
     {
+      Check.Greater(duration, 0.0f);
+
+      Duration = duration;
+      Easing = easing;
+      ProgressCallback = progressCallback;
+      Execution = execution;
+      EndCallback = endCallback;
+      ConditionFunction = conditionFunc;
+      currentTime = 0.0f;
+      State = TweenState.Running;
+
+      UpdateValue();
     }
 
     /// <summary>
     /// Pause the Tween operation.
     /// </summary>
-    public void Pause()
-    {
-    }
+    public void Pause() => State = TweenState.Paused;
 
     /// <summary>
     /// Continue the Tweeen operation.
     /// </summary>
-    public void Resume()
-    {
-    }
+    public void Resume() => State = TweenState.Running;
 
     /// <summary>
     /// Finish the Tween operation.
@@ -81,6 +179,18 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// <param name="moveToEnd">Move the value at the end or leave it as this.</param>
     public void Stop(bool moveToEnd = true)
     {
+      if (State != TweenState.Finished)
+      {
+        State = TweenState.Finished;
+        if (moveToEnd == true)
+        {
+          currentTime = Duration;
+
+          UpdateValue();
+
+          EndCallback?.Invoke(this);
+        }
+      }
     }
 
     /// <summary>
@@ -89,19 +199,56 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// <returns>True if it finish.</returns>
     public bool Update()
     {
-      return false;
-    }
+      if (ConditionFunction != null && ConditionFunction(this) == false)
+        Stop(false);
+      else
+      {
+        currentTime += UnityEngine.Time.deltaTime;
+        if (currentTime >= Duration)
+        {
+          residueCount--;
+          ExecutionCount++;
 
-    private void ExecutionYoyo()
-    {
-    }
+          switch (Execution)
+          {
+            case TweenExecution.Once:
+              Stop(true);
+              break;
 
-    private void ExecutionLoop()
-    {
+            case TweenExecution.Loop:
+              if (residueCount == 0)
+                Stop(true);
+
+              Value = ValueStart;
+              currentTime = Progress = 0.0f;
+              break;
+
+            case TweenExecution.YoYo:
+              if (residueCount == 0)
+                Stop(true);
+
+              T temp = ValueEnd;
+              ValueEnd = ValueStart;
+              ValueStart = temp;
+
+              currentTime = Progress = 0.0f;
+              break;
+          }
+        }
+        else
+          UpdateValue();
+      }
+
+      return State == TweenState.Finished;
     }
 
     private void UpdateValue()
     {
+      Progress = EaseFunctions.Evaluate(Easing, currentTime / Duration);
+
+      Value = lerpFunction(this, ValueStart, ValueEnd, Progress);
+
+      ProgressCallback?.Invoke(this);
     }
   }
 }

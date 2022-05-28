@@ -77,14 +77,18 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// <param name="start">Initial value.</param>
     /// <param name="end">Final value.</param>
     /// <param name="duration">Duration in seconds of the operation.</param>
-    /// <param name="tweenFunc">Function that modifies progress. It must return values between 0 and 1.</param>
+    /// <param name="easing">Easing function.</param>
     /// <param name="progressCallback">Progress callback. Necessary to update the value.</param>
     /// <param name="execution">Behavior when reaching the final value: once, loop, yoyo.</param>
     /// <param name="endCallback">End callback.</param>
     /// <param name="conditionFunc">Condition callback. If the condition is not fulfilled, the tween ends.</param>
-    void Start(T start, T end, float duration, Func<float, float> tweenFunc, Action<ITween<T>> progressCallback,
-                                                                             TweenExecution execution = TweenExecution.Once,
-                                                                             Action<ITween<T>> endCallback = null,
-                                                                             Func<ITween<T>, bool> conditionFunc = null);
+    void Start(T start,
+               T end,
+               float duration,
+               Easing easing,
+               Action<ITween<T>> progressCallback,
+               TweenExecution execution = TweenExecution.Once,
+               Action<ITween<T>> endCallback = null,
+               Func<ITween<T>, bool> conditionFunc = null);
   }
 }

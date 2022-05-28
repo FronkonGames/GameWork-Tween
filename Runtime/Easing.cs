@@ -18,9 +18,9 @@
 namespace FronkonGames.GameWork.Modules.TweenModule
 {
   /// <summary>
-  /// .
+  /// Easing functions.
   /// </summary>
-  public enum EaseType
+  public enum Easing
   {
     /// <summary>
     /// The tween will ease using a linear motion.
