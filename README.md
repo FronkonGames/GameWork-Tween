@@ -32,7 +32,7 @@
   "dependencies":
   {
     ...
-    "FronkonGames.GameWork.Modules.SceneModule": "git+https://github.com/FronkonGames/GameWork-Tween-Module.git",
+    "FronkonGames.GameWork.Modules.TweenModule": "git+https://github.com/FronkonGames/GameWork-Tween-Module.git",
     "FronkonGames.GameWork.Core": "git+https://github.com/FronkonGames/GameWork-Core.git",
     "FronkonGames.GameWork.Foundation": "git+https://github.com/FronkonGames/GameWork-Foundation.git"
   }
@@ -43,3 +43,5 @@
 ## 📜 License
 
 Code released under [MIT License](https://github.com/FronkonGames/GameWork-Scene-Module/blob/main/LICENSE).
+
+["Super Star (Super Mario Bros)"](https://skfb.ly/6zQLq) by Anthony Yanez is licensed under [CC by 4.0](http://creativecommons.org/licenses/by/4.0/).

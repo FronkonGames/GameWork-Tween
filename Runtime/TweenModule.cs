@@ -262,10 +262,11 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     /// </summary>
     public void OnUpdate()
     {
-      for (int i = tweens.Count - 1; i >= 0; --i)
+      int count = tweens.Count;
+      for (int i = count - 1; i >= 0; --i)
       {
         ITween tween = tweens[i];
-        if (tween.Update() == true && i < tweens.Count)
+        if (tween.Update() == true && i < count)
           tweens.RemoveAt(i);
       }
     }

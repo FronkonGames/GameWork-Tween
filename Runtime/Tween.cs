@@ -151,6 +151,8 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     {
       Check.Greater(duration, 0.0f);
 
+      ValueStart = start;
+      ValueEnd = end;
       Duration = duration;
       Easing = easing;
       ProgressCallback = progressCallback;
@@ -244,6 +246,8 @@ namespace FronkonGames.GameWork.Modules.TweenModule
 
     private void UpdateValue()
     {
+      Check.IsNotNull(lerpFunction);
+
       Progress = EaseFunctions.Evaluate(Easing, currentTime / Duration);
 
       Value = lerpFunction(this, ValueStart, ValueEnd, Progress);

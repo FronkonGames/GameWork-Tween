@@ -14,6 +14,7 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+using System.Collections.Generic;
 using UnityEngine;
 using FronkonGames.GameWork.Core;
 
@@ -27,12 +28,31 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     [SerializeField]
     private TweenModule tweenModule;
 
+    [SerializeField]
+    private GameObject starPrefab;
+
+    [SerializeField, Range(0.1f, 5.0f)]
+    private float duration;
+
+    private List<GameObject> starts = new List<GameObject>();
+
     /// <summary>
     /// On initialize.
     /// </summary>
     public override void OnInitialize()
     {
       RegisterModule(tweenModule);
+
+      GameObject star = GameObject.Instantiate(starPrefab);
+      tweenModule.Create(new Vector3(6.0f, 1.0f, 0.0f), new Vector3(-6.0f, 1.0f, 0.0f), duration, Easing.SineInOut, (tween) => star.transform.position = tween.Value, TweenExecution.YoYo);
+    }
+
+    /// <summary>
+    /// At the end of initialization.
+    /// Called in the first Update frame.
+    /// </summary>
+    public override void OnInitialized()
+    {
     }
   }
 }
