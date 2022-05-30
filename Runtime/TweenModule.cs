@@ -23,9 +23,11 @@ using FronkonGames.GameWork.Core;
 namespace FronkonGames.GameWork.Modules.TweenModule
 {
   /// <summary>
-  /// .
+  /// Tween module.
   /// </summary>
-  public sealed class TweenModule : IInitializable,
+  [CreateAssetMenu(fileName = "TweenModule", menuName = "Game:Work/Modules/Tween Module", order = 0)]
+  public sealed class TweenModule : ScriptableModule,
+                                    IInitializable,
                                     IUpdatable
   {
     /// <summary>
