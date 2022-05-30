@@ -43,8 +43,16 @@ namespace FronkonGames.GameWork.Modules.TweenModule
     {
       RegisterModule(tweenModule);
 
-      GameObject star = GameObject.Instantiate(starPrefab);
-      tweenModule.Create(new Vector3(6.0f, 1.0f, 0.0f), new Vector3(-6.0f, 1.0f, 0.0f), duration, Easing.SineInOut, (tween) => star.transform.position = tween.Value, TweenExecution.YoYo);
+      float y = 1.0f;
+
+      // Position.
+      for (int i = 0; i < (int)Easing.BounceInOut; ++i)
+      {
+        GameObject star = GameObject.Instantiate(starPrefab);
+        star.name = $"Star {(Easing)i}";
+        tweenModule.Create(new Vector3(33.0f, y, 0.0f), new Vector3(-33.0f, y, 0.0f), duration, (Easing)i, (tween) => star.transform.position = tween.Value, TweenExecution.YoYo);
+        y += 1.0f;
+      }
     }
 
     /// <summary>
