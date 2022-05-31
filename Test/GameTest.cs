@@ -16,12 +16,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections.Generic;
 using UnityEngine;
+using FronkonGames.GameWork.Foundation;
 using FronkonGames.GameWork.Core;
 
 namespace FronkonGames.GameWork.Modules.TweenModule
 {
   /// <summary>
-  /// .
+  /// Tween module test.
   /// </summary>
   public sealed class GameTest : Game
   {
@@ -46,12 +47,40 @@ namespace FronkonGames.GameWork.Modules.TweenModule
       float y = 1.0f;
 
       // Position.
-      for (int i = 0; i < (int)Easing.BounceInOut; ++i)
+      for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
       {
         GameObject star = GameObject.Instantiate(starPrefab);
         star.name = $"Star {(Easing)i}";
-        tweenModule.Create(new Vector3(33.0f, y, 0.0f), new Vector3(-33.0f, y, 0.0f), duration, (Easing)i, (tween) => star.transform.position = tween.Value, TweenExecution.YoYo);
-        y += 1.0f;
+        tweenModule.Create(new Vector3(15.0f, y, 0.0f), new Vector3(-15.0f, y, 0.0f), duration, (Easing)i, (tween) => star.transform.position = tween.Value, TweenExecution.YoYo);
+        y -= 1.0f;
+      }
+
+      // Rotation.
+      for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
+      {
+        GameObject star = GameObject.Instantiate(starPrefab, new Vector3(15.0f - i, y, 0.0f), Quaternion.identity);
+        star.name = $"Star {(Easing)i}";
+        tweenModule.Create(0.0f, 360.0f, duration, (Easing)i, (tween) => star.transform.localRotation = Quaternion.Euler(0.0f, tween.Value, 0.0f), TweenExecution.YoYo);
+      }
+
+      y -= 1.0f;
+
+      // Scale.
+      for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
+      {
+        GameObject star = GameObject.Instantiate(starPrefab, new Vector3(15.0f - i, y, 0.0f), Quaternion.identity);
+        star.name = $"Star {(Easing)i}";
+        tweenModule.Create(0.0f, 1.0f, duration, (Easing)i, (tween) => star.transform.localScale = Vector3.one * tween.Value, TweenExecution.YoYo);
+      }
+
+      y -= 1.0f;
+
+      // Color.
+      for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
+      {
+        GameObject star = GameObject.Instantiate(starPrefab, new Vector3(15.0f - i, y, 0.0f), Quaternion.identity);
+        star.name = $"Star {(Easing)i}";
+        tweenModule.Create(Color.yellow, ColorExtensions.Random(), duration, (Easing)i, (tween) => star.GetComponent<Renderer>().material.color = tween.Value, TweenExecution.YoYo);
       }
     }
 
