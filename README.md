@@ -1,3 +1,5 @@
+<p align="center"><img src="Documentation/Animation.gif" /></p>
+
 <p align="center"><b>Tween / Easing Module</b></p>
 <br>
 <p align="center">
