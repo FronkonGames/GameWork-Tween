@@ -34,7 +34,7 @@
   "dependencies":
   {
     ...
-    "FronkonGames.GameWork.Modules.TweenModule": "git+https://github.com/FronkonGames/GameWork-Tween-Module.git",
+    "FronkonGames.GameWork.Modules.Tween": "git+https://github.com/FronkonGames/GameWork-Tween.git",
     "FronkonGames.GameWork.Core": "git+https://github.com/FronkonGames/GameWork-Core.git",
     "FronkonGames.GameWork.Foundation": "git+https://github.com/FronkonGames/GameWork-Foundation.git"
   }
