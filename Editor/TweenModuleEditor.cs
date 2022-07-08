@@ -24,13 +24,7 @@ namespace FronkonGames.GameWork.Modules.TweenModule
   /// .
   /// </summary>
   [CustomEditor(typeof(TweenModule))]
-  public sealed class TweenModuleEditor : Inspector
+  public sealed class TweenModuleEditor : Editor
   {
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void InspectorGUI()
-    {
-    }
   }
 }
