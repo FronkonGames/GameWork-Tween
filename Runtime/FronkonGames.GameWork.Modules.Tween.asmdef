@@ -1,9 +1,9 @@
 ﻿{
-  "name": "FronkonGames.GameWork.Modules.TweenModule.Editor",
+  "name": "FronkonGames.GameWork.Modules.Tween",
   "references":
   [
-    "FronkonGames.GameWork.Foundation.Editor",
-    "FronkonGames.GameWork.Modules.TweenModule"
+    "FronkonGames.GameWork.Core",
+    "FronkonGames.GameWork.Foundation"
   ],
   "optionalUnityReferences": [],
   "includePlatforms": [],

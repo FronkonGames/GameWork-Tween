@@ -20,13 +20,12 @@ using UnityEngine;
 using FronkonGames.GameWork.Foundation;
 using FronkonGames.GameWork.Core;
 
-namespace FronkonGames.GameWork.Modules.TweenModule
+namespace FronkonGames.GameWork.Modules.Tween
 {
   /// <summary>
   /// Tween module.
   /// </summary>
-  [CreateAssetMenu(fileName = "TweenModule", menuName = "Game:Work/Modules/Tween Module", order = 0)]
-  public sealed class TweenModule : ScriptableModule,
+  public sealed class TweenModule : MonoBehaviourModule,
                                     IInitializable,
                                     IUpdatable
   {

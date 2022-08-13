@@ -17,7 +17,7 @@
 using UnityEngine;
 using FronkonGames.GameWork.Foundation;
 
-namespace FronkonGames.GameWork.Modules.TweenModule
+namespace FronkonGames.GameWork.Modules.Tween
 {
   /// <summary>
   /// .

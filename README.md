@@ -17,21 +17,25 @@
 
 <p align="center"><b>⚠️Still In Early Development ⚠️<b/></p>
 
-## 🔧 Requisites
+## Features 🎇
+
+TODO.
+
+## Requisites 🔧
 
 - Unity 2021.2 or higher.
 - [Game:Work Core](https://github.com/FronkonGames/GameWork-Core).
 - [Game:Work Foundation](https://github.com/FronkonGames/GameWork-Foundation).
 - Test Framework 1.1.31 or higher.
 
-## 🚀 Installation
+## Installation 📦️
 
 ### Editing your 'manifest.json'
 
 - Open the manifest.json file of your Unity project.
 - In the section "dependencies" add:
 
-```
+```c#
 {
   ...
   "dependencies":
@@ -45,7 +49,27 @@
 }
 ```
 
-## 📜 License
+### Git
+
+First clone the dependencies inside your Assets folder:
+
+```
+git clone https://github.com/FronkonGames/GameWork-Foundation.git
+
+git clone https://github.com/FronkonGames/GameWork-Core.git
+```
+
+Then clone the repository:
+
+```
+git clone https://github.com/FronkonGames/GameWork-Tween.git
+```
+
+## Use 🚀
+
+TODO.
+
+## License 📜
 
 Code released under [MIT License](https://github.com/FronkonGames/GameWork-Scene-Module/blob/main/LICENSE).
 

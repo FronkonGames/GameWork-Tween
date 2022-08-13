@@ -1,5 +1,5 @@
 {
-  "name": "com.frokongames.gamework.modules.tweenmodule",
+  "name": "com.frokongames.gamework.modules.tween",
   "version": "0.0.1",
   "displayName": "Game:Work Tween Module",
   "decription": "Tween / Easing module.",
@@ -20,7 +20,7 @@
   "repository":
   {
     "type": "git",
-    "url": "git+https://github.com/FronkonGames/GameWork-Tween-Module.git"
+    "url": "git+https://github.com/FronkonGames/GameWork-Tween.git"
   },  
   "author":
   {
