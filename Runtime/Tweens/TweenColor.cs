@@ -23,9 +23,25 @@ namespace FronkonGames.GameWork.Modules.Tween
   /// </summary>
   public class TweenColor : Tween<Color>
   {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    public static Tween<Color> Create(Color start = default, Color end = default)
+    {
+      Tween<Color> tween = new TweenColor();
+      tween.Start(start);
+      tween.End(end);
+
+      TweenModule.Instance?.Add(tween);
+
+      return tween;
+    }
+    
     private static Color Lerp(ITween<Color> t, Color start, Color end, float progress) => Color.LerpUnclamped(start, end, progress);
 
-    /// <summary>Constructor.</summary>
-    public TweenColor() : base(Lerp) { }
+    private TweenColor() : base(Lerp) { }
   }
 }

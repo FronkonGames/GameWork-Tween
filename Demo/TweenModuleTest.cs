@@ -111,7 +111,11 @@ public sealed class TweenModuleTest : Game
   {
     GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
 
-    gameObject.transform.TweenPosition(positionEnd, duration, easing, TweenExecution.YoYo);
+    gameObject.transform.TweenPosition(positionEnd)
+      .Duration(duration)
+      .Easing(easing)
+      .Loop(TweenLoop.YoYo)
+      .Start();
     
     positionStart = positionStart.AddY(-1.0f);
     positionEnd = positionEnd.AddY(-1.0f);
@@ -121,7 +125,11 @@ public sealed class TweenModuleTest : Game
   {
     GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
 
-    gameObject.transform.TweenRotation(Quaternion.Euler(0.0f,  Random.Range(180.0f, 360.0f), 0.0f), duration, easing, TweenExecution.YoYo);
+    gameObject.transform.TweenRotation(Quaternion.Euler(0.0f,  Random.Range(180.0f, 360.0f), 0.0f))
+      .Duration(duration)
+      .Easing(easing)
+      .Loop(TweenLoop.YoYo)
+      .Start();
     
     positionStart = positionStart.AddX(-3.0f);
   }
@@ -130,7 +138,11 @@ public sealed class TweenModuleTest : Game
   {
     GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
 
-    gameObject.transform.TweenScale(Vector3.zero, duration, easing, TweenExecution.YoYo);
+    gameObject.transform.TweenScale(Vector3.zero)
+      .Duration(duration)
+      .Easing(easing)
+      .Loop(TweenLoop.YoYo)
+      .Start();
 
     positionStart = positionStart.AddX(-3.0f);
   }
@@ -139,7 +151,11 @@ public sealed class TweenModuleTest : Game
   {
     GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
 
-    gameObject.transform.TweenColor(ColorExtensions.Random(), duration, easing, TweenExecution.YoYo);
+    gameObject.transform.TweenColor( FronkonGames.GameWork.Foundation.ColorExtensions.Random())
+      .Duration(duration)
+      .Easing(easing)
+      .Loop(TweenLoop.YoYo)
+      .Start();
 
     positionStart = positionStart.AddX(-3.0f);
   }

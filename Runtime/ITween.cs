@@ -28,8 +28,6 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// </summary>
     TweenState State { get; }
     
-    bool IsOwned { get; }
-
     /// <summary>
     /// Pause the tween operation.
     /// </summary>
@@ -73,30 +71,23 @@ namespace FronkonGames.GameWork.Modules.Tween
     int ExecutionCount { get; }
 
     /// <summary>
-    /// Set tween owner. If the owner is destroyed, the tween is removed.
-    /// </summary>
-    /// <param name="owner">Owner</param>
-    /// <returns>Tween.</returns>
-    public Tween<T> SetOwner(object owner);
-    
-    /// <summary>
     /// Execute a tween operation.
     /// </summary>
     /// <param name="start">Initial value.</param>
     /// <param name="end">Final value.</param>
     /// <param name="duration">Duration in seconds of the operation.</param>
     /// <param name="easing">Easing function.</param>
-    /// <param name="progressCallback">Progress callback. Necessary to update the value.</param>
-    /// <param name="execution">Behavior when reaching the final value: once, loop, yoyo.</param>
+    /// <param name="updateCallback">Progress callback. Necessary to update the value.</param>
+    /// <param name="loop">Behavior when reaching the final value: once, loop, yoyo.</param>
     /// <param name="endCallback">End callback.</param>
-    /// <param name="conditionFunc">Condition callback. If the condition is not fulfilled, the tween ends.</param>
+    /// <param name="condition">Condition callback. If the condition is not fulfilled, the tween ends.</param>
     void Start(T start,
                T end,
                float duration,
                EasingFunction easing,
-               Action<ITween<T>> progressCallback,
-               TweenExecution execution = TweenExecution.Once,
+               Action<ITween<T>> updateCallback,
+               TweenLoop loop = TweenLoop.Once,
                Action<ITween<T>> endCallback = null,
-               Func<ITween<T>, bool> conditionFunc = null);
+               Func<ITween<T>, bool> condition = null);
   }
 }

@@ -23,9 +23,25 @@ namespace FronkonGames.GameWork.Modules.Tween
   /// </summary>
   public class TweenQuaternion : Tween<Quaternion>
   {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    public static Tween<Quaternion> Create(Quaternion start = default, Quaternion end = default)
+    {
+      Tween<Quaternion> tween = new TweenQuaternion();
+      tween.Start(start);
+      tween.End(end);
+
+      TweenModule.Instance?.Add(tween);
+
+      return tween;
+    }
+
     private static Quaternion Lerp(ITween<Quaternion> t, Quaternion start, Quaternion end, float progress) => Quaternion.LerpUnclamped(start, end, progress);
 
-    /// <summary>Constructor.</summary>
-    public TweenQuaternion() : base(Lerp) { }
+    private TweenQuaternion() : base(Lerp) { }
   }
 }

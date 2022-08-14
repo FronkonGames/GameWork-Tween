@@ -14,21 +14,49 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+using UnityEngine;
 
 namespace FronkonGames.GameWork.Modules.Tween
 {
   /// <summary>
-  /// Execution modes of a Tween operation.
+  /// 
   /// </summary>
-  public enum TweenExecution
+  public static class VectorExtensions
   {
-    /// <summary>Just once.</summary>
-    Once,
-
-    /// <summary>Start over from the beginning.</summary>
-    Loop,
-
-    /// <summary>Back and forth loop.</summary>
-    YoYo,
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    public static Tween<Vector2> Tween(this Vector2 self, Vector2 end = default) =>
+      TweenVector2.Create(self)
+        .End(end)
+        .OnUpdate((tween) => self = tween.Value)
+        .Owner(self);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    public static Tween<Vector3> Tween(this Vector3 self, Vector3 end = default) =>
+      TweenVector3.Create(self)
+        .End(end)
+        .OnUpdate((tween) => self = tween.Value)
+        .Owner(self);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    public static Tween<Vector4> Tween(this Vector4 self, Vector4 end = default) =>
+      TweenVector4.Create(self)
+        .End(end)
+        .OnUpdate((tween) => self = tween.Value)
+        .Owner(self);
   }
 }

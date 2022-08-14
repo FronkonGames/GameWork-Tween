@@ -23,9 +23,25 @@ namespace FronkonGames.GameWork.Modules.Tween
   /// </summary>
   public class TweenVector3 : Tween<Vector3>
   {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    public static Tween<Vector3> Create(Vector3 start = default, Vector3 end = default)
+    {
+      Tween<Vector3> tween = new TweenVector3();
+      tween.Start(start);
+      tween.End(end);
+
+      TweenModule.Instance?.Add(tween);
+
+      return tween;
+    }
+    
     private static Vector3 Lerp(ITween<Vector3> t, Vector3 start, Vector3 end, float progress) => Vector3.LerpUnclamped(start, end, progress);
 
-    /// <summary>Constructor.</summary>
-    public TweenVector3() : base(Lerp) { }
+    private TweenVector3() : base(Lerp) { }
   }
 }

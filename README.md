@@ -15,11 +15,11 @@
   </a>
 </p>
 
-<p align="center"><b>⚠️Still In Early Development ⚠️<b/></p>
-
 ## Features 🎇
 
-TODO.
+- Fluent API.
+- Unity Transform extensions.
+- Coroutine support.
 
 ## Requisites 🔧
 

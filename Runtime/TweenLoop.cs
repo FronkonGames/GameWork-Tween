@@ -14,34 +14,21 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using UnityEngine;
 
 namespace FronkonGames.GameWork.Modules.Tween
 {
   /// <summary>
-  /// Tween Vector4.
+  /// Execution modes of a Tween operation.
   /// </summary>
-  public class TweenVector4 : Tween<Vector4>
+  public enum TweenLoop
   {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="start"></param>
-    /// <param name="end"></param>
-    /// <returns></returns>
-    public static Tween<Vector4> Create(Vector4 start = default, Vector4 end = default)
-    {
-      Tween<Vector4> tween = new TweenVector4();
-      tween.Start(start);
-      tween.End(end);
+    /// Just once.
+    Once,
 
-      TweenModule.Instance?.Add(tween);
+    /// Start over from the beginning.
+    Loop,
 
-      return tween;
-    }
-    
-    private static Vector4 Lerp(ITween<Vector4> t, Vector4 start, Vector4 end, float progress) => Vector4.LerpUnclamped(start, end, progress);
-
-    private TweenVector4() : base(Lerp) { }
+    /// Back and forth loop.
+    YoYo,
   }
 }

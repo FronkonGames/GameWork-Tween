@@ -22,13 +22,13 @@ namespace FronkonGames.GameWork.Modules.Tween
   /// </summary>
   public enum TweenState
   {
-    /// <summary>Executing.</summary>
+    /// Executing.
     Running,
 
-    /// <summary>Paused.</summary>
+    /// Paused.
     Paused,
 
-    /// <summary>Finished.</summary>
+    /// Finished.
     Finished
   }
 }

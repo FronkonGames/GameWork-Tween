@@ -14,34 +14,24 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using UnityEngine;
 
 namespace FronkonGames.GameWork.Modules.Tween
 {
   /// <summary>
-  /// Tween Vector4.
+  /// 
   /// </summary>
-  public class TweenVector4 : Tween<Vector4>
+  public static class FloatExtensions
   {
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="start"></param>
+    /// <param name="self"></param>
     /// <param name="end"></param>
     /// <returns></returns>
-    public static Tween<Vector4> Create(Vector4 start = default, Vector4 end = default)
-    {
-      Tween<Vector4> tween = new TweenVector4();
-      tween.Start(start);
-      tween.End(end);
-
-      TweenModule.Instance?.Add(tween);
-
-      return tween;
-    }
-    
-    private static Vector4 Lerp(ITween<Vector4> t, Vector4 start, Vector4 end, float progress) => Vector4.LerpUnclamped(start, end, progress);
-
-    private TweenVector4() : base(Lerp) { }
+    public static Tween<float> Tween(this float self, float end = default) =>
+      TweenFloat.Create(self)
+        .End(end)
+        .OnUpdate((tween) => self = tween.Value)
+        .Owner(self);
   }
 }

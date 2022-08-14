@@ -23,9 +23,25 @@ namespace FronkonGames.GameWork.Modules.Tween
   /// </summary>
   public class TweenFloat : Tween<float>
   {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    public static Tween<float> Create(float start = default, float end = default)
+    {
+      Tween<float> tween = new TweenFloat();
+      tween.Start(start);
+      tween.End(end);
+
+      TweenModule.Instance?.Add(tween);
+
+      return tween;
+    }
+    
     private static float Lerp(ITween<float> t, float start, float end, float progress) => Mathf.LerpUnclamped(start, end, progress);
 
-    /// <summary>Constructor.</summary>
-    public TweenFloat() : base(Lerp) { }
+    private TweenFloat() : base(Lerp) { }
   }
 }
