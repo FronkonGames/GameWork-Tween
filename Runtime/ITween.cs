@@ -27,6 +27,8 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// Current status of Tween operation.
     /// </summary>
     TweenState State { get; }
+    
+    bool IsOwned { get; }
 
     /// <summary>
     /// Pause the tween operation.
@@ -47,8 +49,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// <summary>
     /// Update the Tween operation.
     /// </summary>
-    /// <returns>True if it finish.</returns>
-    bool Update();
+    void Update();
   }
 
   /// <summary>
@@ -71,6 +72,13 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// </summary>
     int ExecutionCount { get; }
 
+    /// <summary>
+    /// Set tween owner. If the owner is destroyed, the tween is removed.
+    /// </summary>
+    /// <param name="owner">Owner</param>
+    /// <returns>Tween.</returns>
+    public Tween<T> SetOwner(object owner);
+    
     /// <summary>
     /// Execute a tween operation.
     /// </summary>

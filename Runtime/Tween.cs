@@ -29,6 +29,8 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// </summary>
     public TweenState State { get; private set; } = TweenState.Finished;
 
+    public bool IsOwned { get; private set; }
+    
     /// <summary>
     /// Easing function.
     /// Use only when the operation is over (State == TweenState.Finished).
@@ -104,6 +106,8 @@ namespace FronkonGames.GameWork.Modules.Tween
     // Tween, start, end, progress.
     private readonly Func<ITween<T>, T, T, float, T> lerpFunction;
 
+    private object owner = null;
+
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -113,6 +117,14 @@ namespace FronkonGames.GameWork.Modules.Tween
       Check.IsNotNull(lerpFunction);
 
       this.lerpFunction = lerpFunction;
+    }
+
+    public Tween<T> SetOwner(object owner)
+    {
+      IsOwned = owner != null;
+      this.owner = owner;
+
+      return this;
     }
 
     /// <summary>
@@ -198,10 +210,9 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// <summary>
     /// Update the Tween operation.
     /// </summary>
-    /// <returns>True if it finish.</returns>
-    public bool Update()
+    public void Update()
     {
-      if (ConditionFunction != null && ConditionFunction(this) == false)
+      if ((IsOwned == true && owner.Equals(null)) || (ConditionFunction != null && ConditionFunction(this) == false))
         Stop(false);
       else
       {
@@ -238,8 +249,6 @@ namespace FronkonGames.GameWork.Modules.Tween
         else
           UpdateValue();
       }
-
-      return State == TweenState.Finished;
     }
 
     private void UpdateValue()
