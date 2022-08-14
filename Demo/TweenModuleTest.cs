@@ -33,6 +33,9 @@ public sealed class TweenModuleTest : Game
   [Inject]
   private TweenModule tweenModule;
 
+  private Vector3 positionStart;
+  private Vector3 positionEnd;
+
   /// <summary>
   /// On initialize.
   /// </summary>
@@ -46,48 +49,98 @@ public sealed class TweenModuleTest : Game
   /// </summary>
   public override void OnInitialized()
   {
-    const TweenExecution loop = TweenExecution.YoYo;
-    Vector3 start = new(15.0f, 1.0f, 0.0f);
-    Vector3 end = new(-15.0f, 1.0f, 0.0f);
-    
-    // Position.
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Linear.InOut,      loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Cubic.InOut,       loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Quartic.InOut,     loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Quintic.InOut,     loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Sinusoidal.InOut,  loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Exponential.InOut, loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Circular.InOut,    loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Elastic.InOut,     loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Back.InOut,        loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Bounce.InOut,      loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
-/*
-    // Rotation.
-    for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
-    {
-      GameObject star = GameObject.Instantiate(starPrefab, new Vector3(15.0f - i, y, 0.0f), Quaternion.identity);
-      star.name = $"Star {(Easing)i}";
-      tweenModule.Create(0.0f, 360.0f, duration, (Easing)i, (tween) => star.transform.localRotation = Quaternion.Euler(0.0f, tween.Value, 0.0f), TweenExecution.YoYo);
-    }
+    positionStart = new(15.0f, 1.0f, 0.0f);
+    positionEnd = new(-15.0f, 1.0f, 0.0f);
 
-    y -= 1.0f;
+    // Position.
+    InstantiatePosition(Linear.InOut);
+    InstantiatePosition(Cubic.InOut);
+    InstantiatePosition(Quartic.InOut);
+    InstantiatePosition(Quintic.InOut);
+    InstantiatePosition(Sinusoidal.InOut);
+    InstantiatePosition(Exponential.InOut);
+    InstantiatePosition(Circular.InOut);
+    InstantiatePosition(Elastic.InOut);
+    InstantiatePosition(Back.InOut);
+    InstantiatePosition(Bounce.InOut);
+
+    positionStart.AddY(-1.0f);
+    
+    // Rotation.
+    InstantiateRotation(Linear.InOut);
+    InstantiateRotation(Cubic.InOut);
+    InstantiateRotation(Quartic.InOut);
+    InstantiateRotation(Quintic.InOut);
+    InstantiateRotation(Sinusoidal.InOut);
+    InstantiateRotation(Exponential.InOut);
+    InstantiateRotation(Circular.InOut);
+    InstantiateRotation(Elastic.InOut);
+    InstantiateRotation(Back.InOut);
+    InstantiateRotation(Bounce.InOut);
+    
+    positionStart = new(15.0f, positionStart.y - 1.0f, 0.0f);
 
     // Scale.
-    for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
-    {
-      GameObject star = GameObject.Instantiate(starPrefab, new Vector3(15.0f - i, y, 0.0f), Quaternion.identity);
-      star.name = $"Star {(Easing)i}";
-      tweenModule.Create(0.0f, 1.0f, duration, (Easing)i, (tween) => star.transform.localScale = Vector3.one * tween.Value, TweenExecution.YoYo);
-    }
-
-    y -= 1.0f;
-
+    InstantiateScale(Linear.InOut);
+    InstantiateScale(Cubic.InOut);
+    InstantiateScale(Quartic.InOut);
+    InstantiateScale(Quintic.InOut);
+    InstantiateScale(Sinusoidal.InOut);
+    InstantiateScale(Exponential.InOut);
+    InstantiateScale(Circular.InOut);
+    InstantiateScale(Elastic.InOut);
+    InstantiateScale(Back.InOut);
+    InstantiateScale(Bounce.InOut);
+    
+    positionStart = new(15.0f, positionStart.y - 1.0f, 0.0f);
+    
     // Color.
-    for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
-    {
-      GameObject star = GameObject.Instantiate(starPrefab, new Vector3(15.0f - i, y, 0.0f), Quaternion.identity);
-      star.name = $"Star {(Easing)i}";
-      tweenModule.Create(Color.yellow, ColorExtensions.Random(), duration, (Easing)i, (tween) => star.GetComponent<Renderer>().material.color = tween.Value, TweenExecution.YoYo);
-    }*/
+    InstantiateColor(Linear.InOut);
+    InstantiateColor(Cubic.InOut);
+    InstantiateColor(Quartic.InOut);
+    InstantiateColor(Quintic.InOut);
+    InstantiateColor(Sinusoidal.InOut);
+    InstantiateColor(Exponential.InOut);
+    InstantiateColor(Circular.InOut);
+    InstantiateColor(Elastic.InOut);
+    InstantiateColor(Back.InOut);
+    InstantiateColor(Bounce.InOut);
+  }
+
+  private void InstantiatePosition(EasingFunction easing)
+  {
+    GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
+
+    gameObject.transform.TweenPosition(positionEnd, duration, easing, TweenExecution.YoYo);
+    
+    positionStart = positionStart.AddY(-1.0f);
+    positionEnd = positionEnd.AddY(-1.0f);
+  }
+
+  private void InstantiateRotation(EasingFunction easing)
+  {
+    GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
+
+    gameObject.transform.TweenRotation(Quaternion.Euler(0.0f,  Random.Range(180.0f, 360.0f), 0.0f), duration, easing, TweenExecution.YoYo);
+    
+    positionStart = positionStart.AddX(-3.0f);
+  }
+  
+  private void InstantiateScale(EasingFunction easing)
+  {
+    GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
+
+    gameObject.transform.TweenScale(Vector3.zero, duration, easing, TweenExecution.YoYo);
+
+    positionStart = positionStart.AddX(-3.0f);
+  }
+  
+  private void InstantiateColor(EasingFunction easing)
+  {
+    GameObject gameObject = Instantiate(starPrefab, positionStart, Quaternion.identity);
+
+    gameObject.transform.TweenColor(ColorExtensions.Random(), duration, easing, TweenExecution.YoYo);
+
+    positionStart = positionStart.AddX(-3.0f);
   }
 }

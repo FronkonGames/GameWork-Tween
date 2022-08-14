@@ -1,6 +1,6 @@
 {
   "name": "com.frokongames.gamework.modules.tween",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "Game:Work Tween Module",
   "decription": "Tween / Easing module.",
   "references": [ ],

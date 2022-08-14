@@ -44,7 +44,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// <summary>
     /// 
     /// </summary>
-    public static TweenModule Instance { get; private set; }
+    internal static TweenModule Instance { get; private set; }
 
     private readonly FastList<ITween> tweens = new FastList<ITween>();
 
