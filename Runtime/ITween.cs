@@ -85,7 +85,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     void Start(T start,
                T end,
                float duration,
-               Easing easing,
+               EasingFunction easing,
                Action<ITween<T>> progressCallback,
                TweenExecution execution = TweenExecution.Once,
                Action<ITween<T>> endCallback = null,

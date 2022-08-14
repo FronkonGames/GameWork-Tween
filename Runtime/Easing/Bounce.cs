@@ -18,83 +18,33 @@
 namespace FronkonGames.GameWork.Modules.Tween
 {
   /// <summary>
-  /// Easing functions.
+  /// 
   /// </summary>
-  public enum Easing
+  public static class Bounce
   {
     /// <summary>
-    /// The tween will ease using a linear motion.
+    /// 
     /// </summary>
-    Linear,
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static float In(float t) => 1.0f - Out(1.0f - t);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static float Out(float t) => t < (1.0f / 2.75f) ? 7.5625f * t * t
+                                                           : t < (2.0f / 2.75f) ? 7.5625f * (t -= (1.5f / 2.75f)) * t + 0.75f
+                                                                                : t < (2.5f / 2.75f) ? 7.5625f * (t -= (2.25f / 2.75f)) * t + 0.9375f
+                                                                                                     : 7.5625f * (t -= (2.625f / 2.75f)) * t + 0.984375f;
 
     /// <summary>
-    /// The tween will ease using a sine in/out motion.
+    /// 
     /// </summary>
-    SineIn,
-    SineOut,
-    SineInOut,
-
-    /// <summary>
-    /// The tween will ease using a quad in/out motion.
-    /// </summary>
-    QuadIn,
-    QuadOut,
-    QuadInOut,
-
-    /// <summary>
-    /// The tween will ease using a cubic in/out motion.
-    /// </summary>
-    CubicIn,
-    CubicOut,
-    CubicInOut,
-
-    /// <summary>
-    /// The tween will ease using a quart in/out motion.
-    /// </summary>
-    QuartIn,
-    QuartOut,
-    QuartInOut,
-
-    /// <summary>
-    /// The tween will ease using a quint in/out motion.
-    /// </summary>
-    QuintIn,
-    QuintOut,
-    QuintInOut,
-
-    /// <summary>
-    /// The tween will ease using a expo in/out motion.
-    /// </summary>
-    ExpoIn,
-    ExpoOut,
-    ExpoInOut,
-
-    /// <summary>
-    /// The tween will ease using a circ in/out motion.
-    /// </summary>
-    CircIn,
-    CircOut,
-    CircInOut,
-
-    /// <summary>
-    /// The tween will ease using a back in/out motion.
-    /// </summary>
-    BackIn,
-    BackOut,
-    BackInOut,
-
-    /// <summary>
-    /// The tween will ease using a elastic in/out motion.
-    /// </summary>
-    ElasticIn,
-    ElasticOut,
-    ElasticInOut,
-
-    /// <summary>
-    /// The tween will ease using a bounce in/out motion.
-    /// </summary>
-    BounceIn,
-    BounceOut,
-    BounceInOut,
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static float InOut(float t) => t < 0.5f ? In(t * 2.0f) * 0.5f
+                                                   : Out(t * 2.0f - 1.0f) * 0.5f + 0.5f;
   }
 }

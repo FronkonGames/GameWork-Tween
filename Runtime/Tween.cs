@@ -33,7 +33,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// Easing function.
     /// Use only when the operation is over (State == TweenState.Finished).
     /// </summary>
-    public Easing Easing { get; set; } = Easing.Linear;
+    public EasingFunction Easing { get; set; } = Linear.InOut;
 
     /// <summary>
     /// Current value.
@@ -127,7 +127,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// <param name="end">Valor final.</param>
     /// <param name="duration">Duracion en segundos de la operacion.</param>
     /// <param name="easing">Easing function.</param>
-    public void Start(T start, T end, float duration, Easing easing) => Start(start, end, duration, easing, ProgressCallback, Execution, EndCallback, ConditionFunction);
+    public void Start(T start, T end, float duration, EasingFunction easing) => Start(start, end, duration, easing, ProgressCallback, Execution, EndCallback, ConditionFunction);
 
     /// <summary>
     /// Execute a tween operation.
@@ -143,7 +143,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     public void Start(T start,
                       T end,
                       float duration,
-                      Easing easing,
+                      EasingFunction easing,
                       Action<ITween<T>> progressCallback,
                       TweenExecution execution = TweenExecution.Once,
                       Action<ITween<T>> endCallback = null,
@@ -229,9 +229,7 @@ namespace FronkonGames.GameWork.Modules.Tween
               if (residueCount == 0)
                 Stop(true);
 
-              T temp = ValueEnd;
-              ValueEnd = ValueStart;
-              ValueStart = temp;
+              (ValueEnd, ValueStart) = (ValueStart, ValueEnd);
 
               currentTime = Progress = 0.0f;
               break;
@@ -248,7 +246,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     {
       Check.IsNotNull(lerpFunction);
 
-      Progress = EaseFunctions.Evaluate(Easing, currentTime / Duration);
+      Progress = Easing(currentTime / Duration);
 
       Value = lerpFunction(this, ValueStart, ValueEnd, Progress);
 

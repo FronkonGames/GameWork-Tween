@@ -14,7 +14,6 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using System.Collections.Generic;
 using UnityEngine;
 using FronkonGames.GameWork.Foundation;
 using FronkonGames.GameWork.Core;
@@ -34,8 +33,6 @@ public sealed class TweenModuleTest : Game
   [Inject]
   private TweenModule tweenModule;
 
-  private List<GameObject> starts = new List<GameObject>();
-
   /// <summary>
   /// On initialize.
   /// </summary>
@@ -49,17 +46,22 @@ public sealed class TweenModuleTest : Game
   /// </summary>
   public override void OnInitialized()
   {
-    float y = 1.0f;
-
+    const TweenExecution loop = TweenExecution.YoYo;
+    Vector3 start = new(15.0f, 1.0f, 0.0f);
+    Vector3 end = new(-15.0f, 1.0f, 0.0f);
+    
     // Position.
-    for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
-    {
-      GameObject star = GameObject.Instantiate(starPrefab);
-      star.name = $"Star {(Easing)i}";
-      tweenModule.Create(new Vector3(15.0f, y, 0.0f), new Vector3(-15.0f, y, 0.0f), duration, (Easing)i, (tween) => star.transform.position = tween.Value, TweenExecution.YoYo);
-      y -= 1.0f;
-    }
-
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Linear.InOut,      loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Cubic.InOut,       loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Quartic.InOut,     loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Quintic.InOut,     loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Sinusoidal.InOut,  loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Exponential.InOut, loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Circular.InOut,    loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Elastic.InOut,     loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Back.InOut,        loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+    Instantiate(starPrefab, start, Quaternion.identity).transform.TweenPosition(end, duration, Bounce.InOut,      loop); start = start.AddY(-1.0f); end = end.AddY(-1.0f);
+/*
     // Rotation.
     for (int i = 0; i <= (int)Easing.BounceInOut; i += 3)
     {
@@ -86,6 +88,6 @@ public sealed class TweenModuleTest : Game
       GameObject star = GameObject.Instantiate(starPrefab, new Vector3(15.0f - i, y, 0.0f), Quaternion.identity);
       star.name = $"Star {(Easing)i}";
       tweenModule.Create(Color.yellow, ColorExtensions.Random(), duration, (Easing)i, (tween) => star.GetComponent<Renderer>().material.color = tween.Value, TweenExecution.YoYo);
-    }    
+    }*/
   }
 }

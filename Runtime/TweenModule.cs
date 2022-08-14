@@ -40,6 +40,11 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// </summary>
     /// <value>True/false.</value>
     public bool ShouldUpdate { get; } = true;
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public static TweenModule Instance { get; private set; }
 
     private readonly FastList<ITween> tweens = new FastList<ITween>();
 
@@ -57,7 +62,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     public TweenFloat Create(float start,
                              float end,
                              float duration,
-                             Easing easing,
+                             EasingFunction easing,
                              Action<ITween<float>> progressCallback,
                              TweenExecution execution = TweenExecution.Once,
                              Action<ITween<float>> endCallback = null,
@@ -85,7 +90,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     public TweenColor Create(Color start,
                              Color end,
                              float duration,
-                             Easing easing,
+                             EasingFunction easing,
                              Action<ITween<Color>> progressCallback,
                              TweenExecution execution = TweenExecution.Once,
                              Action<ITween<Color>> endCallback = null,
@@ -113,7 +118,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     public TweenVector2 Create(Vector2 start,
                                Vector2 end,
                                float duration,
-                               Easing easing,
+                               EasingFunction easing,
                                Action<ITween<Vector2>> progressCallback,
                                TweenExecution execution = TweenExecution.Once,
                                Action<ITween<Vector2>> endCallback = null,
@@ -141,7 +146,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     public TweenVector3 Create(Vector3 start,
                                Vector3 end,
                                float duration,
-                               Easing easing,
+                               EasingFunction easing,
                                Action<ITween<Vector3>> progressCallback,
                                TweenExecution execution = TweenExecution.Once,
                                Action<ITween<Vector3>> endCallback = null,
@@ -169,7 +174,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     public TweenVector4 Create(Vector4 start,
                                Vector4 end,
                                float duration,
-                               Easing easing,
+                               EasingFunction easing,
                                Action<ITween<Vector4>> progressCallback,
                                TweenExecution execution = TweenExecution.Once,
                                Action<ITween<Vector4>> endCallback = null,
@@ -197,7 +202,7 @@ namespace FronkonGames.GameWork.Modules.Tween
     public TweenQuaternion Create(Quaternion start,
                                   Quaternion end,
                                   float duration,
-                                  Easing easing,
+                                  EasingFunction easing,
                                   Action<ITween<Quaternion>> progressCallback,
                                   TweenExecution execution = TweenExecution.Once,
                                   Action<ITween<Quaternion>> endCallback = null,
@@ -238,6 +243,9 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// </summary>
     public void OnInitialize()
     {
+      Check.IsNull(Instance);
+
+      Instance = this;
     }
 
     /// <summary>
@@ -253,6 +261,8 @@ namespace FronkonGames.GameWork.Modules.Tween
     /// </summary>
     public void OnDeinitialize()
     {
+      Instance = null;
+
       tweens.Clear();
     }
 
